@@ -21,4 +21,6 @@
     <setting id="trakt_refresh_token" type="text" default="" visible="false"/>
     <setting id="addon_debug" type="bool" label="Addon Debug" default="false" visible="false"/>
     <setting id="use_cache" type="bool" label="Cache Enabled" default="true" visible="false"/>
+	<setting id="hide_horror" type="bool" label="Hide Horror" default="true" visible="true"/>
+	<setting id="hide_documentary" type="bool" label="Hide Documentary" default="true" visible="true"/>
 </settings>

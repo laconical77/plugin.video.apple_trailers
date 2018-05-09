@@ -40,6 +40,9 @@ CACHE_LIMITS = [24, 12, 8]
 try: cache_limit = CACHE_LIMITS[int(kodi.get_setting('cache_limit'))]
 except: cache_limit = 24
 
+hide_horror = kodi.get_setting('hide_horror')
+hide_documentary = kodi.get_setting('hide_documentary')
+
 class Scraper(object):
     def __init__(self):
         self.extras = self.__get_extras()
@@ -66,6 +69,18 @@ class Scraper(object):
     def __get_movies(self, source, limit):
         for i, movie in enumerate(self.__get_json(MOVIES_URL % (source))):
             if limit and i >= limit: break
+                
+            genres = movie.get('genre', [])
+            
+            horror = 0
+            documentary = 0
+            for genre in genres:
+                if genre == 'Horror': horror = 1
+                if genre == 'Documentary': documentary = 1
+            
+            if horror and hide_horror:continue
+            if documentary and hide_documentary: continue
+            
             meta = {}
             meta['mediatype'] = 'movie'
             meta['title'] = meta['originaltitle'] = movie['title']
